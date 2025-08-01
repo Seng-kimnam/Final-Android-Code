@@ -1,0 +1,545 @@
+// Employee.java
+package com.example.employee;
+
+import java.io.Serializable;
+import java.util.Date;
+
+public class Employee implements Serializable {
+    private String id;
+    private String firstName;
+    private String lastName;
+    private String address;
+    private double salary;
+    private Date dateOfBirth;
+    private String phone;
+    private String status; // Active, Inactive, Terminated, etc.
+
+    // Default constructor
+    public Employee() {
+    }
+
+    // Constructor with all parameters
+    public Employee(String id, String firstName, String lastName, String address, 
+                   double salary, Date dateOfBirth, String phone, String status) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.salary = salary;
+        this.dateOfBirth = dateOfBirth;
+        this.phone = phone;
+        this.status = status;
+    }
+
+    // Getters
+    public String getId() {
+        return id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    // Setters
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    // Get full name
+    public String getFullName() {
+        return firstName + " " + lastName;
+    }
+
+    // toString method for debugging
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id='" + id + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", address='" + address + '\'' +
+                ", salary=" + salary +
+                ", dateOfBirth=" + dateOfBirth +
+                ", phone='" + phone + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
+
+    // equals method
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Employee employee = (Employee) obj;
+        return id != null ? id.equals(employee.id) : employee.id == null;
+    }
+
+    // hashCode method
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+}
+
+// EmployeeSharedPreference.java
+package com.example.employee;
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+public class EmployeeSharedPreference {
+    private static final String PREF_NAME = "EmployeePreferences";
+    private static final String KEY_EMPLOYEES = "employees";
+    private static final String KEY_EMPLOYEE_PREFIX = "employee_";
+    
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+    private Gson gson;
+    
+    // Constructor
+    public EmployeeSharedPreference(Context context) {
+        sharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+        gson = new Gson();
+    }
+    
+    /**
+     * Save a single employee to SharedPreferences
+     * @param employee Employee object to save
+     * @return true if saved successfully, false otherwise
+     */
+    public boolean save(Employee employee) {
+        try {
+            if (employee == null || employee.getId() == null) {
+                return false;
+            }
+            
+            String employeeJson = gson.toJson(employee);
+            editor.putString(KEY_EMPLOYEE_PREFIX + employee.getId(), employeeJson);
+            
+            // Also maintain a list of all employee IDs
+            List<String> employeeIds = getEmployeeIds();
+            if (!employeeIds.contains(employee.getId())) {
+                employeeIds.add(employee.getId());
+                String idsJson = gson.toJson(employeeIds);
+                editor.putString(KEY_EMPLOYEES, idsJson);
+            }
+            
+            return editor.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    /**
+     * Save multiple employees to SharedPreferences
+     * @param employees List of Employee objects to save
+     * @return true if all saved successfully, false otherwise
+     */
+    public boolean saveAll(List<Employee> employees) {
+        try {
+            if (employees == null || employees.isEmpty()) {
+                return false;
+            }
+            
+            List<String> employeeIds = new ArrayList<>();
+            
+            for (Employee employee : employees) {
+                if (employee != null && employee.getId() != null) {
+                    String employeeJson = gson.toJson(employee);
+                    editor.putString(KEY_EMPLOYEE_PREFIX + employee.getId(), employeeJson);
+                    employeeIds.add(employee.getId());
+                }
+            }
+            
+            String idsJson = gson.toJson(employeeIds);
+            editor.putString(KEY_EMPLOYEES, idsJson);
+            
+            return editor.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    /**
+     * Get a single employee by ID from SharedPreferences
+     * @param employeeId ID of the employee to retrieve
+     * @return Employee object if found, null otherwise
+     */
+    public Employee get(String employeeId) {
+        try {
+            if (employeeId == null) {
+                return null;
+            }
+            
+            String employeeJson = sharedPreferences.getString(KEY_EMPLOYEE_PREFIX + employeeId, null);
+            if (employeeJson != null) {
+                return gson.fromJson(employeeJson, Employee.class);
+            }
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
+    /**
+     * Get all employees from SharedPreferences
+     * @return List of all Employee objects
+     */
+    public List<Employee> getAll() {
+        try {
+            List<Employee> employees = new ArrayList<>();
+            List<String> employeeIds = getEmployeeIds();
+            
+            for (String id : employeeIds) {
+                Employee employee = get(id);
+                if (employee != null) {
+                    employees.add(employee);
+                }
+            }
+            
+            return employees;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+    
+    /**
+     * Get employees by status
+     * @param status Status to filter by (Active, Inactive, etc.)
+     * @return List of Employee objects with matching status
+     */
+    public List<Employee> getByStatus(String status) {
+        List<Employee> filteredEmployees = new ArrayList<>();
+        List<Employee> allEmployees = getAll();
+        
+        for (Employee employee : allEmployees) {
+            if (employee.getStatus() != null && employee.getStatus().equals(status)) {
+                filteredEmployees.add(employee);
+            }
+        }
+        
+        return filteredEmployees;
+    }
+    
+    /**
+     * Search employees by name (first name or last name)
+     * @param name Name to search for
+     * @return List of Employee objects matching the search
+     */
+    public List<Employee> searchByName(String name) {
+        List<Employee> searchResults = new ArrayList<>();
+        List<Employee> allEmployees = getAll();
+        
+        if (name == null || name.trim().isEmpty()) {
+            return searchResults;
+        }
+        
+        String searchName = name.toLowerCase().trim();
+        
+        for (Employee employee : allEmployees) {
+            String firstName = employee.getFirstName() != null ? employee.getFirstName().toLowerCase() : "";
+            String lastName = employee.getLastName() != null ? employee.getLastName().toLowerCase() : "";
+            String fullName = (firstName + " " + lastName).trim();
+            
+            if (firstName.contains(searchName) || lastName.contains(searchName) || fullName.contains(searchName)) {
+                searchResults.add(employee);
+            }
+        }
+        
+        return searchResults;
+    }
+    
+    /**
+     * Remove a single employee by ID from SharedPreferences
+     * @param employeeId ID of the employee to remove
+     * @return true if removed successfully, false otherwise
+     */
+    public boolean remove(String employeeId) {
+        try {
+            if (employeeId == null) {
+                return false;
+            }
+            
+            // Remove the employee data
+            editor.remove(KEY_EMPLOYEE_PREFIX + employeeId);
+            
+            // Remove from employee IDs list
+            List<String> employeeIds = getEmployeeIds();
+            employeeIds.remove(employeeId);
+            String idsJson = gson.toJson(employeeIds);
+            editor.putString(KEY_EMPLOYEES, idsJson);
+            
+            return editor.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    /**
+     * Remove multiple employees by IDs from SharedPreferences
+     * @param employeeIds List of employee IDs to remove
+     * @return true if all removed successfully, false otherwise
+     */
+    public boolean removeAll(List<String> employeeIds) {
+        try {
+            if (employeeIds == null || employeeIds.isEmpty()) {
+                return false;
+            }
+            
+            List<String> currentIds = getEmployeeIds();
+            
+            for (String id : employeeIds) {
+                editor.remove(KEY_EMPLOYEE_PREFIX + id);
+                currentIds.remove(id);
+            }
+            
+            String idsJson = gson.toJson(currentIds);
+            editor.putString(KEY_EMPLOYEES, idsJson);
+            
+            return editor.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    /**
+     * Clear all employee data from SharedPreferences
+     * @return true if cleared successfully, false otherwise
+     */
+    public boolean clearAll() {
+        try {
+            List<String> employeeIds = getEmployeeIds();
+            
+            // Remove all employee data
+            for (String id : employeeIds) {
+                editor.remove(KEY_EMPLOYEE_PREFIX + id);
+            }
+            
+            // Clear the employee IDs list
+            editor.remove(KEY_EMPLOYEES);
+            
+            return editor.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    /**
+     * Check if employee exists by ID
+     * @param employeeId ID to check
+     * @return true if employee exists, false otherwise
+     */
+    public boolean exists(String employeeId) {
+        if (employeeId == null) {
+            return false;
+        }
+        return sharedPreferences.contains(KEY_EMPLOYEE_PREFIX + employeeId);
+    }
+    
+    /**
+     * Get count of total employees
+     * @return Number of employees stored
+     */
+    public int getCount() {
+        return getEmployeeIds().size();
+    }
+    
+    /**
+     * Update existing employee
+     * @param employee Employee object with updated data
+     * @return true if updated successfully, false otherwise
+     */
+    public boolean update(Employee employee) {
+        if (employee == null || employee.getId() == null) {
+            return false;
+        }
+        
+        if (exists(employee.getId())) {
+            return save(employee); // Save will overwrite existing data
+        }
+        
+        return false; // Employee doesn't exist
+    }
+    
+    /**
+     * Get list of employee IDs from SharedPreferences
+     * @return List of employee IDs
+     */
+    private List<String> getEmployeeIds() {
+        try {
+            String idsJson = sharedPreferences.getString(KEY_EMPLOYEES, null);
+            if (idsJson != null) {
+                Type listType = new TypeToken<List<String>>(){}.getType();
+                return gson.fromJson(idsJson, listType);
+            }
+            return new ArrayList<>();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+}
+
+// Example Usage - MainActivity.java
+package com.example.employee;
+
+import android.os.Bundle;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+public class MainActivity extends AppCompatActivity {
+    
+    private EmployeeSharedPreference employeePreference;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        
+        // Initialize SharedPreference helper
+        employeePreference = new EmployeeSharedPreference(this);
+        
+        // Example usage
+        demonstrateEmployeeOperations();
+    }
+    
+    private void demonstrateEmployeeOperations() {
+        try {
+            // Create sample employees
+            Date birthDate1 = dateFormat.parse("15/03/1990");
+            Date birthDate2 = dateFormat.parse("22/07/1985");
+            
+            Employee employee1 = new Employee(
+                "EMP001",
+                "Sokha",
+                "Chan",
+                "Phnom Penh, Cambodia",
+                1500.50,
+                birthDate1,
+                "+855 12 345 678",
+                "Active"
+            );
+            
+            Employee employee2 = new Employee(
+                "EMP002",
+                "Dara",
+                "Lim",
+                "Siem Reap, Cambodia",
+                1200.75,
+                birthDate2,
+                "+855 98 765 432",
+                "Active"
+            );
+            
+            // Save employees
+            boolean saved1 = employeePreference.save(employee1);
+            boolean saved2 = employeePreference.save(employee2);
+            
+            if (saved1 && saved2) {
+                Toast.makeText(this, "Employees saved successfully!", Toast.LENGTH_SHORT).show();
+            }
+            
+            // Get employee by ID
+            Employee retrievedEmployee = employeePreference.get("EMP001");
+            if (retrievedEmployee != null) {
+                Toast.makeText(this, "Retrieved: " + retrievedEmployee.getFullName(), Toast.LENGTH_SHORT).show();
+            }
+            
+            // Get all employees
+            List<Employee> allEmployees = employeePreference.getAll();
+            Toast.makeText(this, "Total employees: " + allEmployees.size(), Toast.LENGTH_SHORT).show();
+            
+            // Search by name
+            List<Employee> searchResults = employeePreference.searchByName("Sokha");
+            Toast.makeText(this, "Search results: " + searchResults.size(), Toast.LENGTH_SHORT).show();
+            
+            // Get by status
+            List<Employee> activeEmployees = employeePreference.getByStatus("Active");
+            Toast.makeText(this, "Active employees: " + activeEmployees.size(), Toast.LENGTH_SHORT).show();
+            
+            // Update employee
+            employee1.setSalary(1800.00);
+            employee1.setStatus("Promoted");
+            boolean updated = employeePreference.update(employee1);
+            
+            // Remove employee (uncomment to test)
+            // boolean removed = employeePreference.remove("EMP002");
+            
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Date parsing error", Toast.LENGTH_SHORT).show();
+        }
+    }
+}

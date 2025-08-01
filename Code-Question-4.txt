@@ -1,0 +1,47 @@
+// Step 4: Set Up the ListView in the Activity
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>
+
+// Then, implement the activity (MainActivity.java):
+import android.os.Bundle;
+import androidx.appcompat.app.AppCompatActivity;
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity {
+    private ListView listView;
+    private List<Item> itemList;
+    private CustomAdapter adapter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // Initialize ListView
+        listView = findViewById(R.id.list_view);
+
+        // Prepare data
+        itemList = new ArrayList<>();
+        itemList.add(new Item("Apple", R.drawable.apple));
+        itemList.add(new Item("Banana", R.drawable.banana));
+        itemList.add(new Item("Orange", R.drawable.orange));
+
+        // Initialize and set the adapter
+        adapter = new CustomAdapter(this, itemList);
+        listView.setAdapter(adapter);
+    }
+}
+// Step 5: Add Permissions (if needed)
+
+ <uses-permission android:name="android.permission.INTERNET" />

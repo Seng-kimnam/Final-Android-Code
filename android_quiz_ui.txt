@@ -1,0 +1,641 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- activity_main_linear.xml - LinearLayout Version -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:padding="16dp">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#6A1B9A"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="QuizLinearAndRelative.ayou"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <!-- Logo and University Name -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="32dp">
+
+        <ImageView
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_university_logo"
+            android:background="@drawable/circle_background" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BUID SMART UNIVERSITY"
+            android:textColor="#333333"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp" />
+
+    </LinearLayout>
+
+    <!-- Login Form -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Student Login"
+            android:textColor="#6A1B9A"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Student ID Field -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etStudentId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Student ID"
+                android:inputType="text"
+                android:drawableLeft="@drawable/ic_person"
+                android:drawablePadding="12dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Password Field -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:passwordToggleEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:drawableLeft="@drawable/ic_lock"
+                android:drawablePadding="12dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- Remember Me Checkbox -->
+        <CheckBox
+            android:id="@+id/cbRememberMe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Remember Me"
+            android:textColor="#666666"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Login Button -->
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Log In"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_purple_bg"
+            android:layout_marginBottom="12dp"
+            android:padding="16dp"
+            android:textAllCaps="false" />
+
+        <!-- Sign Up Button -->
+        <Button
+            android:id="@+id/btnSignUp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign UP"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_purple_bg"
+            android:padding="16dp"
+            android:textAllCaps="false" />
+
+    </LinearLayout>
+
+</LinearLayout>
+
+<!-- activity_main_relative.xml - RelativeLayout Version -->
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    android:padding="16dp">
+
+    <!-- Header -->
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#6A1B9A"
+        android:padding="16dp"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="QuizLinearAndRelative.ayou"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
+
+    <!-- Logo Section -->
+    <RelativeLayout
+        android:id="@+id/logoSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header"
+        android:padding="32dp">
+
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@drawable/ic_university_logo"
+            android:background="@drawable/circle_background"
+            android:layout_centerHorizontally="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BUID SMART UNIVERSITY"
+            android:textColor="#333333"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_below="@id/ivLogo"
+            android:layout_centerHorizontally="true"
+            android:layout_marginTop="8dp" />
+
+    </RelativeLayout>
+
+    <!-- Registration Form -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logoSection"
+        android:layout_above="@id/buttonContainer">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tvRegisterTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Register Student"
+                android:textColor="#00BCD4"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="24dp" />
+
+            <!-- First Name Field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilFirstName"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvRegisterTitle"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etFirstName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="First Name"
+                    android:inputType="textPersonName" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Last Name Field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilLastName"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvRegisterTitle"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="8dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etLastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Last Name"
+                    android:inputType="textPersonName" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Username Field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tilFirstName"
+                android:layout_marginTop="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Username"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Phone Field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tilUsername"
+                android:layout_marginTop="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Phone"
+                    android:inputType="phone" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Email Field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tilPhone"
+                android:layout_marginTop="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email"
+                    android:inputType="textEmailAddress" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Note Field -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tilEmail"
+                android:layout_marginTop="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Note"
+                    android:inputType="textMultiLine"
+                    android:lines="3" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <!-- Bottom Buttons -->
+    <RelativeLayout
+        android:id="@+id/buttonContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="BACK"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_purple_bg"
+            android:layout_alignParentLeft="true"
+            android:textAllCaps="true" />
+
+        <Button
+            android:id="@+id/btnSignUpRegister"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="SIGN UP"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/button_purple_bg"
+            android:layout_alignParentRight="true"
+            android:textAllCaps="true" />
+
+    </RelativeLayout>
+
+</RelativeLayout>
+
+<!-- MainActivity.java -->
+package com.example.quizapp;
+
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
+
+public class MainActivity extends AppCompatActivity {
+
+    // LinearLayout elements (Login Screen)
+    private TextInputEditText etStudentId, etPassword;
+    private TextInputLayout tilStudentId, tilPassword;
+    private CheckBox cbRememberMe;
+    private Button btnLogin, btnSignUp;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main_linear);
+
+        initializeLinearLayoutViews();
+        setupLinearLayoutListeners();
+    }
+
+    private void initializeLinearLayoutViews() {
+        etStudentId = findViewById(R.id.etStudentId);
+        etPassword = findViewById(R.id.etPassword);
+        cbRememberMe = findViewById(R.id.cbRememberMe);
+        btnLogin = findViewById(R.id.btnLogin);
+        btnSignUp = findViewById(R.id.btnSignUp);
+    }
+
+    private void setupLinearLayoutListeners() {
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                validateAndLogin();
+            }
+        });
+
+        btnSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Switch to RelativeLayout (Registration Screen)
+                setContentView(R.layout.activity_main_relative);
+                initializeRelativeLayoutViews();
+                setupRelativeLayoutListeners();
+            }
+        });
+    }
+
+    private void validateAndLogin() {
+        String studentId = etStudentId.getText().toString().trim();
+        String password = etPassword.getText().toString().trim();
+        boolean isRemembered = cbRememberMe.isChecked();
+
+        boolean isValid = true;
+
+        // Validate Student ID
+        if (TextUtils.isEmpty(studentId)) {
+            etStudentId.setError("Student ID is required");
+            isValid = false;
+        } else if (studentId.length() < 3) {
+            etStudentId.setError("Student ID must be at least 3 characters");
+            isValid = false;
+        } else {
+            etStudentId.setError(null);
+        }
+
+        // Validate Password
+        if (TextUtils.isEmpty(password)) {
+            etPassword.setError("Password is required");
+            isValid = false;
+        } else if (password.length() < 6) {
+            etPassword.setError("Password must be at least 6 characters");
+            isValid = false;
+        } else {
+            etPassword.setError(null);
+        }
+
+        if (isValid) {
+            String message = "Login successful! Student ID: " + studentId;
+            if (isRemembered) {
+                message += " (Remembered)";
+            }
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+        }
+    }
+
+    // RelativeLayout elements (Registration Screen)
+    private TextInputEditText etFirstName, etLastName, etUsername, etPhone, etEmail, etNote;
+    private Button btnBack, btnSignUpRegister;
+
+    private void initializeRelativeLayoutViews() {
+        etFirstName = findViewById(R.id.etFirstName);
+        etLastName = findViewById(R.id.etLastName);
+        etUsername = findViewById(R.id.etUsername);
+        etPhone = findViewById(R.id.etPhone);
+        etEmail = findViewById(R.id.etEmail);
+        etNote = findViewById(R.id.etNote);
+        btnBack = findViewById(R.id.btnBack);
+        btnSignUpRegister = findViewById(R.id.btnSignUpRegister);
+    }
+
+    private void setupRelativeLayoutListeners() {
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Switch back to LinearLayout (Login Screen)
+                setContentView(R.layout.activity_main_linear);
+                initializeLinearLayoutViews();
+                setupLinearLayoutListeners();
+            }
+        });
+
+        btnSignUpRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                validateAndRegister();
+            }
+        });
+    }
+
+    private void validateAndRegister() {
+        String firstName = etFirstName.getText().toString().trim();
+        String lastName = etLastName.getText().toString().trim();
+        String username = etUsername.getText().toString().trim();
+        String phone = etPhone.getText().toString().trim();
+        String email = etEmail.getText().toString().trim();
+        String note = etNote.getText().toString().trim();
+
+        boolean isValid = true;
+
+        // Validate First Name
+        if (TextUtils.isEmpty(firstName)) {
+            etFirstName.setError("First name is required");
+            isValid = false;
+        } else if (firstName.length() < 2) {
+            etFirstName.setError("First name must be at least 2 characters");
+            isValid = false;
+        } else {
+            etFirstName.setError(null);
+        }
+
+        // Validate Last Name
+        if (TextUtils.isEmpty(lastName)) {
+            etLastName.setError("Last name is required");
+            isValid = false;
+        } else if (lastName.length() < 2) {
+            etLastName.setError("Last name must be at least 2 characters");
+            isValid = false;
+        } else {
+            etLastName.setError(null);
+        }
+
+        // Validate Username
+        if (TextUtils.isEmpty(username)) {
+            etUsername.setError("Username is required");
+            isValid = false;
+        } else if (username.length() < 4) {
+            etUsername.setError("Username must be at least 4 characters");
+            isValid = false;
+        } else if (!username.matches("^[a-zA-Z0-9_]+$")) {
+            etUsername.setError("Username can only contain letters, numbers, and underscores");
+            isValid = false;
+        } else {
+            etUsername.setError(null);
+        }
+
+        // Validate Phone
+        if (TextUtils.isEmpty(phone)) {
+            etPhone.setError("Phone number is required");
+            isValid = false;
+        } else if (!phone.matches("^[+]?[0-9]{10,15}$")) {
+            etPhone.setError("Please enter a valid phone number");
+            isValid = false;
+        } else {
+            etPhone.setError(null);
+        }
+
+        // Validate Email
+        if (TextUtils.isEmpty(email)) {
+            etEmail.setError("Email is required");
+            isValid = false;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            etEmail.setError("Please enter a valid email address");
+            isValid = false;
+        } else {
+            etEmail.setError(null);
+        }
+
+        // Note is optional, no validation needed
+
+        if (isValid) {
+            String message = "Registration successful!\n" +
+                    "Name: " + firstName + " " + lastName + "\n" +
+                    "Username: " + username + "\n" +
+                    "Email: " + email + "\n" +
+                    "Phone: " + phone;
+            
+            if (!TextUtils.isEmpty(note)) {
+                message += "\nNote: " + note;
+            }
+            
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+            
+            // After successful registration, go back to login screen
+            setContentView(R.layout.activity_main_linear);
+            initializeLinearLayoutViews();
+            setupLinearLayoutListeners();
+        }
+    }
+}
+
+<!-- Drawable Resources -->
+
+<!-- res/drawable/button_purple_bg.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#6A1B9A" />
+    <corners android:radius="8dp" />
+</shape>
+
+<!-- res/drawable/circle_background.xml -->
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <solid android:color="#E3F2FD" />
+    <stroke android:width="2dp" android:color="#2196F3" />
+</shape>
+
+<!-- res/drawable/ic_person.xml -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#666666"
+        android:pathData="M12,12c2.21,0 4,-1.79 4,-4s-1.79,-4 -4,-4 -4,1.79 -4,4 1.79,4 4,4zM12,14c-2.67,0 -8,1.34 -8,4v2h16v-2c0,-2.66 -5.33,-4 -8,-4z"/>
+</vector>
+
+<!-- res/drawable/ic_lock.xml -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#666666"
+        android:pathData="M18,8h-1L17,6c0,-2.76 -2.24,-5 -5,-5S7,3.24 7,6v2L6,8c-1.1,0 -2,0.9 -2,2v10c0,1.1 0.9,2 2,2h12c1.1,0 2,-0.9 2,-2L20,10c0,-1.1 -0.9,-2 -2,-2zM12,17c-1.1,0 -2,-0.9 -2,-2s0.9,-2 2,-2 2,0.9 2,2 -0.9,2 -2,2zM15.1,8L8.9,8L8.9,6c0,-1.71 1.39,-3.1 3.1,-3.1 1.71,0 3.1,1.39 3.1,3.1v2z"/>
+</vector>
+
+<!-- res/drawable/ic_university_logo.xml -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#2196F3"
+        android:pathData="M5,13.18v4L12,21l7,-3.82v-4L12,17l-7,-3.82zM12,3L1,9l11,6 9,-4.91V17h2V9L12,3z"/>
+</vector>
+
+<!-- build.gradle (Module: app) dependencies -->
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    // ... other dependencies
+}
